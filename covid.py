@@ -7,7 +7,7 @@
 
 """
 
-import requests, json
+import requests
 import re, csv, sys
 from requests.exceptions import HTTPError
 
@@ -33,7 +33,7 @@ region = "New South Wales"
 
 # TODO: Might as well check valid fields too
 indicator = "mask"
-typ = "smoothed"
+typ = "daily"
 
 # Dates must be in format YYYYMMDD - TODO: Add tests for invalid ranges, test one day range
 # TODO: Invalid date checkers
@@ -69,13 +69,14 @@ except Exception as err:
     print(f"Other Error Occurred: {err}")
 
 # Convert from json data into a dict
-jsonData = json.loads(response.text)
+jsonData = response.json() 
 
 output = list()
 
 # Say what fields you want out of this data
+# TODO: Check field possibilities for each set of data
 fields = {
-    # 'percent_mc_unw',
+    'percent_mc_unw',
     'percent_mc',
     'sample_size',
     'survey_date'
