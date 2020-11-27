@@ -32,14 +32,15 @@ typ = "daily"
 # Dates must be in format YYYYMMDD - TODO: Add tests for invalid ranges, test one day range
 # TODO: Invalid date checkers
 dateStart = "20201001"
-dateEnd= "20201031"
+dateEnd   = "20201031"
 
 ###########################
 
 # Convert dates to US format if using Aussie format
 # I.e. convert from YYYYMMDD to DDMMYYYY
-dateStart = convertDate("20201001")
-dateEnd   = convertDate("20201031")
+if aussieDateFormat:
+    dateStart = convertDate("20201001")
+    dateEnd   = convertDate("20201031")
 
 # Replaces space characters in country/region entries so API call works
 region = re.sub(" ", "+", region)
