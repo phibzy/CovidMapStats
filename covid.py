@@ -33,7 +33,7 @@ region = "New South Wales"
 
 # TODO: Might as well check valid fields too
 indicator = "mask"
-typ = "daily"
+typ = "smoothed"
 
 # Dates must be in format YYYYMMDD - TODO: Add tests for invalid ranges, test one day range
 # TODO: Invalid date checkers
@@ -75,7 +75,7 @@ output = list()
 
 # Say what fields you want out of this data
 fields = {
-    'percent_mc_unw',
+    # 'percent_mc_unw',
     'percent_mc',
     'sample_size',
     'survey_date'
