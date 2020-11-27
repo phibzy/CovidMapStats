@@ -12,20 +12,34 @@ import json
 import re
 import csv
 
+#TODO: class format for easy testing
 
 # FEEL FREE TO CHANGE THESE FOR WHATEVER DATA YOU WANT
 ##########################
 
+# Flag to indicate input/output format
+# True by default since API date format is US
+aussieDateFormat = True
+
+# TODO: country/region checkers
 country = "Australia"
-indicator = "mask"
-typ = "daily"
 region = "New South Wales"
 
+# TODO: Might as well check valid fields too
+indicator = "mask"
+typ = "daily"
+
 # Dates must be in format YYYYMMDD - TODO: Add tests for invalid ranges, test one day range
+# TODO: Invalid date checkers
 dateStart = "20201001"
 dateEnd= "20201031"
 
 ###########################
+
+# Convert dates to US format if using Aussie format
+# I.e. convert from YYYYMMDD to DDMMYYYY
+dateStart = convertDate("20201001")
+dateEnd   = convertDate("20201031")
 
 # Replaces space characters in country/region entries so API call works
 region = re.sub(" ", "+", region)
@@ -56,8 +70,8 @@ for i in jsonData['data']:
     entry = {k: i[k] for k in i.keys() and fields}
 
     # Swaps our dates into DDMMYYYY format for us beloved Aussies
-    if "survey_date" in entry:
-        entry["survey_date"] = re.sub(r"^([0-9]{4})([0-9]{2})([0-9]{2})$", r"\3\2\1", entry["survey_date"]) 
+    if aussieDateFormat and "survey_date" in entry:
+        entry["survey_date"] = convertDate(entry["survey_date"])
 
     output.append(entry)
 
@@ -89,3 +103,7 @@ Damo wants:
 
 
 """
+
+# Converts date from US/AUS to AUS/US 
+def convertDate(date):
+    return re.sub(r"^([0-9]{2})([0-9]{2})([0-9]{4})$", r"\3\2\1", date)
