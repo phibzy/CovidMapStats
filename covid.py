@@ -7,11 +7,9 @@
 
 """
 
-import requests
-import json
-import re
-import csv
-import sys
+import requests, json
+import re, csv, sys
+from requests.exceptions import HTTPError
 
 #TODO: class format for easy testing
 
@@ -53,16 +51,20 @@ country = re.sub(" ", "+", country)
 
 daterange = f"{dateStart}-{dateEnd}"
 
-response = requests.get(f"https://covidmap.umd.edu/api/resources?indicator={indicator}&type={typ}&country={country}&region={region}&daterange={daterange}")
+try:
+    response = requests.get(f"https://covidmap.umd.edu/api/resources?indicator={indicator}&type={typ}&country={country}&region={region}&daterange={daterange}")
 
-if not response:
-    print("Error: bad response from API")
-    sys.exit()
+    # Check status of response
+    response.raise_for_status()
+
+except HTTPError as err:
+    print(f"HTTP Error: {err}")
+
+except Exception as err:
+    print(f"Other Error Occurred: {err}")
 
 # Convert from json data into a dict
 jsonData = json.loads(response.text)
-
-# TODO: Error check here lol
 
 output = list()
 
