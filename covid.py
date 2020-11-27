@@ -13,9 +13,12 @@ from requests.exceptions import HTTPError
 
 #TODO: class format for easy testing
 
-# Converts date from US/AUS to AUS/US 
-def convertDate(date):
+# Date conversion helper functions 
+def convertDateToUS(date):
     return re.sub(r"^([0-9]{2})([0-9]{2})([0-9]{4})$", r"\3\2\1", date)
+
+def convertDateToAU(date):
+    return re.sub(r"^([0-9]{4})([0-9]{2})([0-9]{2})$", r"\3\2\1", date)
 
 # FEEL FREE TO CHANGE THESE FOR WHATEVER DATA YOU WANT
 ##########################
@@ -42,8 +45,8 @@ dateEnd   = "31102020"
 # Convert dates to US format if using Aussie format
 # I.e. convert from YYYYMMDD to DDMMYYYY
 if aussieDateFormat:
-    dateStart = convertDate(dateStart)
-    dateEnd   = convertDate(dateEnd)
+    dateStart = convertDateToUS(dateStart)
+    dateEnd   = convertDateToUS(dateEnd)
 
 # Replaces space characters in country/region entries so API call works
 region = re.sub(" ", "+", region)
@@ -83,7 +86,7 @@ for i in jsonData['data']:
 
     # Swaps our dates into DDMMYYYY format for us beloved Aussies
     if aussieDateFormat and "survey_date" in entry:
-        entry["survey_date"] = convertDate(entry["survey_date"])
+        entry["survey_date"] = convertDateToAU(entry["survey_date"])
 
     output.append(entry)
 
