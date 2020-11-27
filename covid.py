@@ -11,8 +11,13 @@ import requests
 import json
 import re
 import csv
+import sys
 
 #TODO: class format for easy testing
+
+# Converts date from US/AUS to AUS/US 
+def convertDate(date):
+    return re.sub(r"^([0-9]{2})([0-9]{2})([0-9]{4})$", r"\3\2\1", date)
 
 # FEEL FREE TO CHANGE THESE FOR WHATEVER DATA YOU WANT
 ##########################
@@ -48,10 +53,14 @@ country = re.sub(" ", "+", country)
 
 daterange = f"{dateStart}-{dateEnd}"
 
-response = requests.get(f"https://covidmap.umd.edu/api/resources?indicator={indicator}&type={typ}&country={country}&region={region}&daterange={daterange}").text
+response = requests.get(f"https://covidmap.umd.edu/api/resources?indicator={indicator}&type={typ}&country={country}&region={region}&daterange={daterange}")
+
+if not response:
+    print("Error: bad response from API")
+    sys.exit()
 
 # Convert from json data into a dict
-jsonData = json.loads(response)
+jsonData = json.loads(response.text)
 
 # TODO: Error check here lol
 
@@ -94,6 +103,3 @@ try:
 except IOError:
     print("I/O Error")
 
-# Converts date from US/AUS to AUS/US 
-def convertDate(date):
-    return re.sub(r"^([0-9]{2})([0-9]{2})([0-9]{4})$", r"\3\2\1", date)
