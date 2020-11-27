@@ -55,7 +55,9 @@ country = re.sub(" ", "+", country)
 daterange = f"{dateStart}-{dateEnd}"
 
 try:
-    response = requests.get(f"https://covidmap.umd.edu/api/resources?indicator={indicator}&type={typ}&country={country}&region={region}&daterange={daterange}")
+    url = f"https://covidmap.umd.edu/api/resources?indicator={indicator}&type={typ}&country={country}&region={region}&daterange={daterange}"
+    print(url)
+    response = requests.get(url)
 
     # Check status of response
     response.raise_for_status()
