@@ -94,17 +94,6 @@ try:
 except IOError:
     print("I/O Error")
 
-
-"""
-Damo wants:
-    percent_mc_unw
-    sample_size
-
-
-
-
-"""
-
 # Converts date from US/AUS to AUS/US 
 def convertDate(date):
     return re.sub(r"^([0-9]{2})([0-9]{2})([0-9]{4})$", r"\3\2\1", date)
