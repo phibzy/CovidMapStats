@@ -3,5 +3,5 @@ Program which takes data from the University of Maryland's Covid Map API and spi
 
 Includes support for both AU/US format date inputs.
 
-# API Source:
+# API Source
 https://covidmap.umd.edu/api.html
