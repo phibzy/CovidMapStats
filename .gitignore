@@ -3,3 +3,5 @@
 
 # ignore tags files
 tags
+
+__pycache__

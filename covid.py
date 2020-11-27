@@ -9,7 +9,14 @@
 
 import requests
 import re, csv, sys
+import logging
 from requests.exceptions import HTTPError
+
+# Setting basic config for debugging prompts
+logging.basicConfig(level=logging.DEBUG, format="%(msg)s")
+
+# Uncomment this to disable debugging output
+# logging.disable(logging.DEBUG)
 
 #TODO: class format for easy testing
 
@@ -25,6 +32,7 @@ def convertDateToAU(date):
 
 # Flag to indicate input/output format
 # True by default since API date format is US
+# and I happen to be Australian
 aussieDateFormat = True
 
 # TODO: country/region checkers
@@ -56,7 +64,9 @@ daterange = f"{dateStart}-{dateEnd}"
 
 try:
     url = f"https://covidmap.umd.edu/api/resources?indicator={indicator}&type={typ}&country={country}&region={region}&daterange={daterange}"
-    print(url)
+    
+    # Print URL for debugging purposes
+    logging.debug(f"URL: {url}")
     response = requests.get(url)
 
     # Check status of response
@@ -87,14 +97,18 @@ for i in jsonData['data']:
     # for the specified fields that we want!
     entry = {k: i[k] for k in i.keys() and fields}
 
-    # Swaps our dates into DDMMYYYY format for us beloved Aussies
+    # TODO: Some form of error if chosen output field isn't
+    # in the set of data we get back from the API call
+
+    # Swaps our dates back into DDMMYYYY format for us beloved Aussies
     if aussieDateFormat and "survey_date" in entry:
         entry["survey_date"] = convertDateToAU(entry["survey_date"])
 
     output.append(entry)
 
+# Debugging contents of output to be written to csv file 
 for i in output:
-    print(i)
+    logging.debug(i)
 
 # convert to csv (excel) format
 csv_filename = "data.csv"
@@ -102,7 +116,7 @@ try:
     with open(csv_filename, "w") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fields)
 
-        # Writes fields to top of excel file
+        # Writes field names to top of excel file
         writer.writeheader()
         for data in output:
             writer.writerow(data)
