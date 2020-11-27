@@ -48,6 +48,15 @@ typ = "daily"
 dateStart = "01102020"
 dateEnd   = "31102020"
 
+# Say what fields you want out of this data
+# TODO: Check field possibilities for each set of data
+fields = {
+    'percent_mc_unw',
+    'percent_mc',
+    'sample_size',
+    'survey_date'
+}
+
 ###########################
 
 # Convert dates to US format if using Aussie format
@@ -83,14 +92,6 @@ jsonData = response.json()
 
 output = list()
 
-# Say what fields you want out of this data
-# TODO: Check field possibilities for each set of data
-fields = {
-    'percent_mc_unw',
-    'percent_mc',
-    'sample_size',
-    'survey_date'
-}
 
 for i in jsonData['data']:
     # For each entry in data dict, grab the key/value pairs
