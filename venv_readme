@@ -1,0 +1,4 @@
+Setup venv for testing only
+If stuck refer to here: https://stackoverflow.com/questions/6323860/sibling-package-imports/50193944#50193944
+
+To start venv: source ./venv/bin/activate

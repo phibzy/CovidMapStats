@@ -1,0 +1,4 @@
+CovidMapStats.egg-info/PKG-INFO
+CovidMapStats.egg-info/SOURCES.txt
+CovidMapStats.egg-info/dependency_links.txt
+CovidMapStats.egg-info/top_level.txt
