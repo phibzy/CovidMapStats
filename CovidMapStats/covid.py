@@ -8,7 +8,7 @@
 """
 
 import requests
-import re, csv, sys
+import re, csv#, sys
 import logging
 from requests.exceptions import HTTPError
 
@@ -21,10 +21,10 @@ logging.basicConfig(level=logging.DEBUG, format="%(msg)s")
 #TODO: class format for easy testing
 
 # Date conversion helper functions 
-def convertDateToUS(date):
+def convertDateToUS(date: str) -> str:
     return re.sub(r"^([0-9]{2})([0-9]{2})([0-9]{4})$", r"\3\2\1", date)
 
-def convertDateToAU(date):
+def convertDateToAU(date: str) -> str:
     return re.sub(r"^([0-9]{4})([0-9]{2})([0-9]{2})$", r"\3\2\1", date)
 
 # FEEL FREE TO CHANGE THESE FOR WHATEVER DATA YOU WANT
