@@ -92,23 +92,28 @@ try:
 
 except HTTPError as err:
     print(f"HTTP Error: {err}")
+    sys.exit()
 
 except Exception as err:
     print(f"Other Error Occurred: {err}")
+    sys.exit()
 
 # Convert from json data into a dict
 jsonData = response.json() 
 
 output = list()
 
-# TODO: Error handling if there's no data at all in daterange
+# If there's no data for selected parameters,
+# then there's nothing to write to the csv file
+if not jsonData['data']:
+    print(f"No data available for selected parameters")
+    sys.exit()
+
+
 for i in jsonData['data']:
     # For each entry in data dict, grab the key/value pairs
     # for the specified fields that we want!
     entry = {k: i[k] for k in i.keys() and fields}
-
-    # TODO: Some form of error if chosen output field isn't
-    # in the set of data we get back from the API call
 
     # Swaps our dates back into DDMMYYYY format for us beloved Aussies
     if aussieDateFormat and "survey_date" in entry:
