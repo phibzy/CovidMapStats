@@ -39,6 +39,8 @@ aussieDateFormat = True
 
 # Will do checks later on when data returns
 # TODO: country/region checkers
+# can check country against "country" API endpoint - in future update it each day and have dropdown list
+# there is also region endpoint I haven't investigated much yet 
 country = "Australia" # Mandatory
 region = "New South Wales"
 
