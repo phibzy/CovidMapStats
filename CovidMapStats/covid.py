@@ -8,7 +8,7 @@
 """
 
 import requests
-import re, csv#, sys
+import re, csv, sys
 import logging
 from requests.exceptions import HTTPError
 from CovidMapStats.fields import defaultFields, regionFields, selectFields
@@ -42,7 +42,6 @@ aussieDateFormat = True
 country = "Australia" # Mandatory
 region = "New South Wales"
 
-# TODO: Might as well check valid fields too
 indicator = "mask" # Mandatory
 typ = "daily"      # Mandatory
 
@@ -52,6 +51,15 @@ dateEnd   = "31102020"
 
 # Checks which fields you selected, then creates
 # a dictionary with all of those fields present
+# (once it passes input checks of course)
+if indicator not in selectFields:
+    print(f"Error: '{indicator}' is not a valid indicator")
+    sys.exit()
+
+if typ not in selectFields[indicator]:
+    print(f"Error: typ value '{typ}' is not 'daily' or 'smoothed'")
+    sys.exit()
+
 fields = dict(selectFields[indicator][typ], **defaultFields)
 
 # If region was given, add region fields as well
