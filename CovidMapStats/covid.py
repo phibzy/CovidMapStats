@@ -50,9 +50,9 @@ typ = "daily"      # Mandatory
 dateStart = "01102020"
 dateEnd   = "31102020"
 
-# Say what fields you want out of this data
-# TODO: Check field possibilities for each set of data
-fields = defaultFields.update(selectFields[indicator][typ])
+# Checks which fields you selected, then creates
+# a dictionary with all of those fields present
+fields = dict(selectFields[indicator][typ], **defaultFields)
 
 # If region was given, add region fields as well
 if region:

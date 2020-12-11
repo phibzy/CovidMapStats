@@ -11,6 +11,7 @@
 
 import unittest
 from CovidMapStats.covid import convertDateToAU, convertDateToUS
+from CovidMapStats.fields import defaultFields, regionFields, selectFields
 
 class testConvertDate(unittest.TestCase):
 

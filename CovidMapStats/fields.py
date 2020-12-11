@@ -2,10 +2,10 @@
 
 defaultFields = {
     # present in all results
-    "country": "country name of the data.",
-    "gid_0": "the code for join country level data to the GADM country level data",
     "sample_size": "sample size for calculating the targeted value.",
     "survey_date": "date when survey was taken",
+    "country": "country name of the data.",
+    "gid_0": "the code for join country level data to the GADM country level data",
     "iso_code": "2 or 3 letter ISO code of country",
 }
 
@@ -97,4 +97,3 @@ selectFields = {
        }
     }
 }
-
