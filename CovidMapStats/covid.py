@@ -37,7 +37,6 @@ def convertDateToAU(date: str) -> str:
 # and I happen to be Australian
 aussieDateFormat = True
 
-# Will do checks later on when data returns
 # TODO: country/region checkers
 # can check country against "country" API endpoint - in future update it each day and have dropdown list
 # there is also region endpoint I haven't investigated much yet 
@@ -47,7 +46,7 @@ region = "New South Wales"
 indicator = "mask" # Mandatory
 typ = "daily"      # Mandatory
 
-# Dates must be in format YYYYMMDD - TODO: Add tests for invalid ranges, test one day range
+# Dates must be in format YYYYMMDD
 dateStart = "01102020"
 dateEnd   = "31102020"
 
