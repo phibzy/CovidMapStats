@@ -7,9 +7,9 @@
 
 """
 
-import requests
+import pprint, requests
 import re, csv, sys
-import logging
+import logging, shelve
 from requests.exceptions import HTTPError
 from CovidMapStats.fields import defaultFields, regionFields, selectFields
 
@@ -29,19 +29,30 @@ def convertDateToUS(date: str) -> str:
 def convertDateToAU(date: str) -> str:
     return re.sub(r"^([0-9]{4})([0-9]{2})([0-9]{2})$", r"\3\2\1", date)
 
-# FEEL FREE TO CHANGE THESE FOR WHATEVER DATA YOU WANT
-##########################
-
 # Flag to indicate input/output format
 # True by default since API date format is US
 # and I happen to be Australian
 aussieDateFormat = True
 
 # TODO: country/region checkers
-# can check country against "country" API endpoint - in future update it each day and have dropdown list
-# there is also region endpoint I haven't investigated much yet 
+
+# Load regions dict from shelve file
+regions = shelve.open('regions')
+
 country = "Australia" # Mandatory
 region = "New South Wales"
+
+# Check country and region are both valid
+if country not in regions:
+    print(f"Error: Country not in dataset. Did you spell it correctly (with capital at start)?")
+    sys.exit()
+
+if region and region not in regions[country]:
+    print(f"Error: Region not in dataset.")
+    sys.exit()
+
+# Close shelve file once checks are done
+regions.close()
 
 indicator = "mask" # Mandatory
 typ = "daily"      # Mandatory

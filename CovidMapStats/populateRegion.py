@@ -13,6 +13,7 @@
 """
 
 import requests, sys
+import shelve
 from pprint import pprint
 from requests.exceptions import HTTPError
 
@@ -36,16 +37,18 @@ except Exception as err:
 # Convert JSON to dict object, with country name as keys
 # mapping to a dict of region names
 data = response.json()
-regions = dict()
 
-for entry in data['data']:
-    country = entry['country']
-    region = entry['region']
+# 'n' flag used to write to new shelve file
+# even if it already exists. Using this instead of
+# 'clear()' due to shelve files not reclaiming free space
+with shelve.open('regions', flag='n', writeback=True) as regions:
+    for entry in data['data']:
+        country = entry['country']
+        region = entry['region']
 
-    if country not in regions:
-        regions[country] = dict()
+        # Country beinig added properly,
+        # region not
+        if country not in regions:
+            regions[country] = dict()
 
-    regions[country][region] = 1
-
-pprint(regions)
-        
+        regions[country][region] = 1
