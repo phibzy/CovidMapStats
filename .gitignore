@@ -2,6 +2,6 @@
 *.csv
 
 # ignore tags files
-tags
+tags*
 
 __pycache__
