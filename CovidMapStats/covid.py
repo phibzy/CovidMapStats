@@ -12,20 +12,14 @@ import re, csv, sys
 import logging, shelve
 from requests.exceptions import HTTPError
 from CovidMapStats.fields import defaultFields, regionFields, selectFields
+from CovidMapStats.dateConverters import convertDateToUS, convertDateToAU
 
 # Setting basic config for debugging prompts
 logging.basicConfig(level=logging.DEBUG, format="%(msg)s")
 
 # Uncomment this to disable debugging output
-# logging.disable(logging.DEBUG)
+logging.disable(logging.DEBUG)
 # CLI = Covid-like illness
-
-# Date conversion helper functions 
-def convertDateToUS(date: str) -> str:
-    return re.sub(r"^([0-9]{2})([0-9]{2})([0-9]{4})$", r"\3\2\1", date)
-
-def convertDateToAU(date: str) -> str:
-    return re.sub(r"^([0-9]{4})([0-9]{2})([0-9]{2})$", r"\3\2\1", date)
 
 # Flag to indicate input/output format
 # True by default since API date format is US
