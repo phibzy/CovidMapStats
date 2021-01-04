@@ -11,8 +11,9 @@
 
 import unittest
 import shelve
+from pprint import pprint
 from pathlib import Path
-from CovidMapStats.covid import convertDateToAU, convertDateToUS
+from CovidMapStats.dateConverters import convertDateToAU, convertDateToUS
 from CovidMapStats.fields import defaultFields, regionFields, selectFields
 
 class testHelpersAndDataStructures(unittest.TestCase):
@@ -21,11 +22,13 @@ class testHelpersAndDataStructures(unittest.TestCase):
         self.assertEqual(convertDateToAU("20201001"), "01102020")
         self.assertEqual(convertDateToUS("01102020"),"20201001")
 
+    # Make sure to run tests from main project directory, otherwise
+    # this won't work
     def testRegionChecker(self):
         # Work out some way to get absolute path working
         # for regions shelve file
-        regions = shelve.open('../regions')
-        print(dict(regions))
+        regions = shelve.open('regions')
+        # pprint(dict(regions))
 
         # Test regions with spaces, weird punctuation and first/last entries
         self.assertTrue('Afghanistan' in regions)

@@ -26,7 +26,7 @@ logging.disable(logging.DEBUG)
 # and I happen to be Australian
 aussieDateFormat = True
 
-# Load regions dict from shelve file
+# Load country and regions dict from shelve file
 regions = shelve.open('regions')
 
 country = "Australia" # Mandatory

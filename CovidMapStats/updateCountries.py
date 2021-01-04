@@ -18,7 +18,7 @@ from pprint import pprint
 from requests.exceptions import HTTPError
 
 try: 
-    url = "https://covidmap.umd.edu/api/region"
+    url = "https://covidmap.umd.edu/api/country"
     response = requests.get(url)
 
     # Check response status
@@ -41,10 +41,8 @@ data = response.json()
 # 'n' flag used to write to new shelve file
 # even if it already exists. Using this instead of
 # 'clear()' due to shelve files not reclaiming free space
-with shelve.open('regions', writeback=True) as regions:
+with shelve.open('regions', flag='n', writeback=True) as regions:
+    # Create blank dicts for each country,
+    # which we can then use to add regions later
     for entry in data['data']:
-        country = entry['country']
-        region = entry['region']
-
-        # Add region under country name
-        regions[country][region] = 1
+        regions[entry['country']] = dict()
