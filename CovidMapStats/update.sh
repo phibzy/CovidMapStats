@@ -8,5 +8,10 @@
 # @description : Run to update country/location data 
 ######################################################################
 
+echo -n "Updating country list..."
 ./scripts/updateCountries.py
+echo "Done!"
+
+echo -n "Updating region list..."
 ./scripts/updateRegions.py
+echo "Done!"
