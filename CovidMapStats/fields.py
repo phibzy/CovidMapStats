@@ -1,5 +1,12 @@
 #!/usr/bin/python3
 
+"""
+    All the available data fields
+
+    Comment out whichever ones you don't want
+
+"""
+
 defaultFields = {
     # present in all results
     "sample_size": "sample size for calculating the targeted value.",
