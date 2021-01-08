@@ -11,8 +11,8 @@ import pprint, requests
 import re, csv, sys
 import logging, shelve
 from requests.exceptions import HTTPError
-from CovidMapStats.fields import defaultFields, regionFields, selectFields
-from CovidMapStats.dateConverters import convertDateToUS, convertDateToAU
+from fields import defaultFields, regionFields, selectFields
+from dateConverters import convertDateToUS, convertDateToAU
 
 # Setting basic config for debugging prompts
 logging.basicConfig(level=logging.DEBUG, format="%(msg)s")
