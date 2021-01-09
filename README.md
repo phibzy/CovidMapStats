@@ -1,5 +1,5 @@
 # CovidMapStats
-Program which takes data from the University of Maryland's Covid Map API and spits it out into a nice csv file. I am in no way affiliated with them.
+Program which takes data from the University of Maryland's Covid Map API and spits it out into a nice csv file.
 
 Within the CovidMapStats subdirectory, simply open the fields.py file and comment out any fields you don't want. Note that some fields are only present for particular queries.
 
